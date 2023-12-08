@@ -1,0 +1,66 @@
+/* POLICES */
+@font-face {
+    font-family: Orbitron;
+    src: url(/client/font/Orbitron-Regular.ttf);
+}
+
+/* GÉNÉRAL */
+body {
+    background: url("/client/img/SPACE.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+input {
+    background-color: rgb(23, 27, 63);
+    font-family: Orbitron;
+    text-align: center;
+    font-size: 14px;
+    border: solid 1px gray;
+    color: gray;
+}
+
+button {
+    background-color: rgb(23, 27, 63);
+    padding: 2px 16px;
+    margin-bottom: 10px;
+    font-family: Orbitron;
+    border: solid 1px rgb(0, 204, 255);
+    color: rgb(0, 204, 255);
+}
+
+a {
+    background-color: rgb(23, 27, 63);
+    padding: 3px 7px;
+    font-family: Orbitron;
+    text-decoration: none;
+    font-size: 13px;
+    color: rgb(0, 204, 255);
+    border: solid 1px rgb(0, 204, 255);
+}
+
+/* CLASSES */
+.login-container {
+    position: relative;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    background-color: rgb(23, 27, 63);
+    text-align: center;
+}
+
+.sign-in-input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign-in-input-group > *:not(:last-child) {
+    margin-bottom: 7px;
+}

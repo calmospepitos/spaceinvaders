@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chat</title>
+        <link rel="stylesheet" href="css/global.css">
+        <link rel="stylesheet" href="css/chat.css">
+        <script src="dist/chat.js"></script>
+        <link rel="icon" href="img/favicon.png" type="image/png" />
+    </head>
+    <body>
+		<div id="vue-container">
+            <div id="game">
+                <a href="javascript:void(0)" id="sign-out-btn">Déconnexion</a>
+                <div><img src="/client/img/soundoff.png" id="sound" onclick="toggleSound()"></div>
+                <div id="gameover"></div>
+                <div id="spaceship"></div>
+            </div>
+            <div id="menu">
+                <div id="lifeContainer">
+                    <div id="vieRestantes"><p>VIES RESTANTES</p></div>
+                    <div id="listeVies">
+                        <img src="img/vie.png" id="vie0" class="vie">
+                        <img src="img/vie.png" id="vie1" class="vie">
+                        <img src="img/vie.png" id="vie2" class="vie">
+                        <img src="img/vie.png" id="vie3" class="vie">
+                        <img src="img/vie.png" id="vie4" class="vie">
+                        <br>
+                        <img src="img/vie.png" id="vie5" class="vie">
+                        <img src="img/vie.png" id="vie6" class="vie">
+                        <img src="img/vie.png" id="vie7" class="vie">
+                        <img src="img/vie.png" id="vie8" class="vie">
+                        <img src="img/vie.png" id="vie9" class="vie">
+                    </div>
+                </div>
+                <div id="chat">
+                    <div id="chat-output"></div>
+                    <div id="chat-input"><textarea cols="43" rows="1"></textarea></div>
+                </div>
+                <div id="chat-members"></div>
+            </div>
+        </div>
+    </body>
+</html>

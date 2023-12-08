@@ -1,0 +1,55 @@
+/* POLICES */
+@font-face {
+    font-family: Orbitron;
+    src: url(/client/font/Orbitron-Regular.ttf);
+}
+
+/* GÉNÉRAL */
+body {
+    background: url("/client/img/SPACE.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+form {
+    background-color: rgb(23, 27, 63);
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form > * {
+    margin-bottom: 10px;
+}
+
+input {
+    background-color: rgb(23, 27, 63);
+    font-family: Orbitron;
+    text-align: center;
+    font-size: 14px;
+    border: solid 1px gray;
+    color: gray;
+}
+
+button {
+    background-color: rgb(23, 27, 63);
+    padding: 2px 16px;
+    margin-bottom: 10px;
+    font-family: Orbitron;
+    border: solid 1px rgb(0, 204, 255);
+    color: rgb(0, 204, 255);
+}
+
+/* CLASSES */
+.logo {
+    top: 0;
+    margin-bottom: 10px;
+    margin-top: -50px;
+}
