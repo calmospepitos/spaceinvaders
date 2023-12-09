@@ -5,6 +5,7 @@ let spriteList = [];
 let projectileList = [];
 let nbAlien = 0;
 let nbProjectile = 0;
+let nbKills = 0;
 let spaceship = null;
 
 window.addEventListener("load", () => {
@@ -108,6 +109,11 @@ const displayNewMessage = (fromUser, message) => {
 
     // SCROLL TO BOTTOM
     chatOutput.scrollTop = chatOutput.scrollHeight;
+};
+
+const updateKillsDisplay = () => {
+    const killsDiv = document.getElementById("kills");
+    killsDiv.textContent = "Kills: " + nbKills;
 };
 
 class Spaceship {
@@ -224,7 +230,6 @@ class Alien {
         this.spaceship = document.querySelector("#spaceship");
         this.spaceshipInstance = spaceshipInstance;
         this.gameArea = document.querySelector("#game");
-        this.margin = 35;
         this.speed = 2;
         this.spawnOnRandomBorder();
         parentElement.appendChild(this.node);
@@ -238,21 +243,21 @@ class Alien {
         switch (randomBorder) {
             case 'top':
                 this.x = Math.random() * gameRect.width + gameRect.left;
-                this.y = gameRect.top + this.margin;
+                this.y = gameRect.top;
                 this.speedY = this.speed;
                 break;
             case 'bottom':
                 this.x = Math.random() * gameRect.width + gameRect.left;
-                this.y = gameRect.bottom + this.margin;
+                this.y = gameRect.bottom;
                 this.speedY = -this.speed;
                 break;
             case 'left':
-                this.x = gameRect.left + this.margin;
+                this.x = gameRect.left;
                 this.y = Math.random() * gameRect.height + gameRect.top;
                 this.speedX = this.speed;
                 break;
             case 'right':
-                this.x = gameRect.right + this.margin;
+                this.x = gameRect.right;
                 this.y = Math.random() * gameRect.height + gameRect.top;
                 this.speedX = -this.speed;
                 break;
@@ -262,6 +267,38 @@ class Alien {
 
         this.node.style.left = this.x + "px";
         this.node.style.top = this.y + "px";
+    }
+
+    checkCollisionWithProjectiles(projectiles) {
+        for (let i = 0; i < projectiles.length; i++) {
+            const projectile = projectiles[i];
+            const projectileRect = projectile.node.getBoundingClientRect();
+
+            if (
+                this.x < projectileRect.right &&
+                this.x + this.node.offsetWidth > projectileRect.left &&
+                this.y < projectileRect.bottom &&
+                this.y + this.node.offsetHeight > projectileRect.top
+            ) {
+                // Handle collision with projectile (remove both projectile and alien)
+                let projectileIndex = projectileList.indexOf(projectile);
+                if (projectileIndex !== -1) {
+                    projectileList.splice(projectileIndex, 1);
+                }
+
+                let alienIndex = spriteList.indexOf(this);
+                if (alienIndex !== -1) {
+                    spriteList.splice(alienIndex, 1);
+                }
+
+                projectile.node.remove();
+                this.node.remove();
+                nbKills++;
+                nbAlien--;
+
+                updateKillsDisplay();
+            }
+        }
     }
 
     tick() {
@@ -285,6 +322,7 @@ class Alien {
             }
 
             this.node.remove();
+            nbAlien--;
         }
 
         // REGARDE SI COLLISION AVEC LE SPACESHIP
@@ -302,11 +340,15 @@ class Alien {
             }
 
             this.node.remove();
+            nbAlien--;
 
             // if (this.spaceshipInstance.life == 0) {
 
             // }
         }
+
+        // REGARDE SI COLLISION AVEC UN PROJECTILE
+        this.checkCollisionWithProjectiles(projectileList);
     }
 }
 
