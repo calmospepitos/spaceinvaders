@@ -2,7 +2,9 @@ import {registerCallbacks, sendMessage, signout, chatMessageLoop} from './chat-a
 import { AudioControl } from './page-index';
 
 let spriteList = [];
-let nbalien = 0;
+let projectileList = [];
+let nbAlien = 0;
+let nbProjectile = 0;
 let spaceship = null;
 
 window.addEventListener("load", () => {
@@ -26,13 +28,14 @@ window.addEventListener("load", () => {
         const gameArea = event.currentTarget.getBoundingClientRect();
         const clickX = event.clientX - gameArea.left;
         const clickY = event.clientY - gameArea.top;
-
-        spaceship.shootProjectile(clickX, clickY);
-    });
+    
+        projectileList.push(new Projectile("projectile" + nbProjectile, spaceship.node.getBoundingClientRect(), clickX, clickY));
+        nbProjectile++;
+    });    
 
     setInterval(() => {
-        spriteList.push(new Alien("alien" + nbalien, game, spaceship));
-        nbalien++;
+        spriteList.push(new Alien("alien" + nbAlien, game, spaceship));
+        nbAlien++;
     }, 2000);
 
     tick();
@@ -42,6 +45,11 @@ const tick = () => {
     for (let i = 0; i < spriteList.length; i++) {
         const node = spriteList[i];
         node.tick();
+    }
+
+    for (let i = 0; i < projectileList.length; i++) {
+        const projectile = projectileList[i];
+        projectile.tick();
     }
 
     window.requestAnimationFrame(tick);
@@ -143,33 +151,6 @@ class Spaceship {
                 break;
         }
     }
-    
-    shootProjectile = (clickX, clickY) => {
-        let spaceshipRect = this.node.getBoundingClientRect();
-        let projectile = document.createElement("div");
-        projectile.className = "projectile";
-        projectile.style.left = spaceshipRect.left + "px";
-        projectile.style.top = spaceshipRect.top + "px";
-        this.gameArea.appendChild(projectile);
-
-        // CALCUL DE LA DISTANCE
-        let distanceX = clickX - spaceshipRect.left;
-        let distanceY = clickY - spaceshipRect.top;
-
-        // ANIMATION
-        projectile.style.transition = 'none'; 
-        projectile.style.transform = `translate(0, 0)`;
-        projectile.offsetWidth; 
-        projectile.style.transition = `all 0.5s linear`;
-
-        // MOUVEMENT DU PROJECTILE
-        projectile.style.transform = `translate(${distanceX}px, ${distanceY}px)`;
-
-        // REMOVE
-        projectile.addEventListener('transitionend', () => {
-            projectile.remove();
-        });
-    };
 
     hitByAlien() {
         if (!this.hasShield) {
@@ -199,14 +180,39 @@ class Spaceship {
 }
 
 class Projectile {
-    constructor(id, gameArea, spaceshipRect) {
+    constructor(id, spaceshipPosition, clickX, clickY) {
         this.id = id;
         this.node = document.createElement("div");
         this.node.classList.add("projectile");
-        this.gameArea = gameArea;
-        this.x = spaceshipRect.left;
-        this.y = spaceshipRect.top;
-        this.gameArea.appendChild(node);
+        this.gameArea = document.querySelector("#game");
+        this.x = spaceshipPosition.left + spaceshipPosition.width / 2; // Initial x position
+        this.y = spaceshipPosition.top + spaceshipPosition.height / 2; // Initial y position
+        this.targetX = clickX;
+        this.targetY = clickY;
+        this.speed = 5;
+        this.gameArea.appendChild(this.node);
+    }
+
+    tick() {
+        const deltaX = this.targetX - this.x;
+        const deltaY = this.targetY - this.y;
+        const distance = Math.sqrt(deltaX ** 2 + deltaY ** 2);
+
+        if (distance < this.speed) {
+            this.x = this.targetX;
+            this.y = this.targetY;
+            this.node.remove();
+        } else {
+            const angle = Math.atan2(deltaY, deltaX);
+
+            // Move by directly adding speed to the position
+            this.x += Math.cos(angle) * this.speed;
+            this.y += Math.sin(angle) * this.speed;
+        }
+
+        // Update CSS position
+        this.node.style.left = this.x + "px";
+        this.node.style.top = this.y + "px";
     }
 }
 
@@ -222,7 +228,6 @@ class Alien {
         this.speed = 2;
         this.spawnOnRandomBorder();
         parentElement.appendChild(this.node);
-        
     }
 
     spawnOnRandomBorder() {
