@@ -6,14 +6,16 @@
 
 /* GÉNÉRAL */
 body {
-    background: url("/client/img/SPACE.png");
-    background-repeat: no-repeat;
-    background-size: cover;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
+    background: url("/client/img/SPACE.png") no-repeat;
+    background-size: cover;
 }
 
 form {
@@ -52,4 +54,12 @@ button {
     top: 0;
     margin-bottom: 10px;
     margin-top: -50px;
+}
+
+/* IDS */
+#container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

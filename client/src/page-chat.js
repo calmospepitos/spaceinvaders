@@ -231,6 +231,7 @@ class Alien {
         this.spaceshipInstance = spaceshipInstance;
         this.gameArea = document.querySelector("#game");
         this.speed = 2;
+        this.margin = 20;
         this.spawnOnRandomBorder();
         parentElement.appendChild(this.node);
     }
@@ -243,21 +244,21 @@ class Alien {
         switch (randomBorder) {
             case 'top':
                 this.x = Math.random() * gameRect.width + gameRect.left;
-                this.y = gameRect.top;
+                this.y = gameRect.top + this.margin;
                 this.speedY = this.speed;
                 break;
             case 'bottom':
                 this.x = Math.random() * gameRect.width + gameRect.left;
-                this.y = gameRect.bottom;
+                this.y = gameRect.bottom + this.margin;
                 this.speedY = -this.speed;
                 break;
             case 'left':
-                this.x = gameRect.left;
+                this.x = gameRect.left + this.margin;
                 this.y = Math.random() * gameRect.height + gameRect.top;
                 this.speedX = this.speed;
                 break;
             case 'right':
-                this.x = gameRect.right;
+                this.x = gameRect.right + this.margin;
                 this.y = Math.random() * gameRect.height + gameRect.top;
                 this.speedX = -this.speed;
                 break;
