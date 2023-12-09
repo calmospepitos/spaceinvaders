@@ -40,3 +40,17 @@ Toutes les informations nécessaires à la réalisation du projet se trouvent ic
 ## Remise du projet
 
 Les informations concernant la remise du projet se trouvent ici : [https://notes-de-cours.com/webjs/travaux]
+
+## Description des animations
+
+1. Le déplacement du spaceship.
+2. Le déplacement des aliens (un alien apparait à chaque deux secondes).
+3. Le déplacement du projectile (un projectile apparait lorsqu'on clique à l'intérieur du jeu).
+4. Les coeurs de vie diminuent si le spaceship entre en collision avec un alien.
+5. Un alien disparait s'il entre en collision avec le spaceship, un projectile ou avec la bordure du jeu (enchainement avec le projectile).
+6. Le projectile disparait lorsqu'il entre en collision avec un alien ou s'il arrive aux coordonnées du clic.
+7. Lorsque que le spaceship entre en collision avec un alien, le spaceship change de teinte.
+8. Musique lorsqu'on clic sur l'icône du haut parleur en haut à droite.
+9. Le spaceship ne subit pas de dégats lorsqu'on tape "/shield" dans le chat.
+
+## TRAVAIL FAIT PAR ALEXIA LEVESQUE
